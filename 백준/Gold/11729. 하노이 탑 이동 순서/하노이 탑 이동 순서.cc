@@ -1,48 +1,36 @@
 #include <iostream>
-#include <vector>
+#include <cmath>
 
 using namespace std;
 
 // 하노이 탑 이동 순서
 int N;
-int K;
-vector<pair<int, int>> process; // 이동 기록 저장
 
-void move(int num, vector<int>& from, vector<int>& temp, vector<int>& to)
+// 하노이 탑 이동 함수
+void move(int n, int from, int to, int temp)
 {
-	if (num == 0)
+	// 원판이 1개인 경우
+	if(n == 1)
+	{
+		cout << from << ' ' << to << '\n';
 		return;
+	}
 
-	move(num - 1, from, to, temp);
-	process.push_back({ from[0], to[0] });
-	move(num - 1, temp, from, to);
+	// 작운 원판을 임시 기둥으로 이동
+	move(n - 1, from, temp, to);
+	// 가장 큰 원판을 목적지 기둥으로 이동
+	cout << from << ' ' << to << '\n';
+	// 작은 원판을 정리
+	move(n - 1, temp, to, from);
 }
 
 
 void program()
 {
 	cin >> N;
-
-	vector<int> vec1, vec2, vec3;
-	
-	// 기둥 번호 판별용
-	vec1.push_back(1);
-	vec2.push_back(2);
-	vec3.push_back(3);
-
-	for (int i = 1; i <= N; i++)
-	{
-		vec1.push_back(i);
-	}
-
-	move(N,vec1,vec2,vec3);
-
-	cout << process.size() << "\n";
-
-	for (int i = 0; i < process.size(); i++)
-	{
-		cout << process[i].first << " " << process[i].second << "\n";
-	}
+	// cout << pow(2, N) - 1 << '\n'; // double형으로 반환되므로 정확하지가 않아 오차 발생
+	cout << ((1LL << N) - 1) << '\n'; // 2^N - 1을 비트 시프트 연산으로 계산
+	move(N, 1, 3, 2);
 }
 
 
