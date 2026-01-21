@@ -4,8 +4,6 @@ using namespace std;
 
 // N과 M  (2)
 // 재귀와 dfs로 해결 가능
-// 오름차순 조건 추가
-
 
 void dfs(int N, int M,vector<int>& vec, int start)
 {
