@@ -11,37 +11,30 @@ void program()
 	int n;
 	cin >> n;
 
-	vector<vector<int>> triangle(n, vector<int>(n, 0));
-
 	//dp[j] = max(dp[j-1], d[j]) + triangle[i][j];
-
-	// 삼각형 입력
-	for (int i = 0; i < n; i++)
-	{
-		for(int j = 0; j <= i; j++)
-		{
-			cin >> triangle[i][j];
-		}
-	}
-
+	
 	vector<int> dp(n, 0);
 
-	dp[0] = triangle[0][0];
-
-	for (int i = 1; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
-		// 오른쪽 끝
-		dp[i] = dp[i - 1] + triangle[i][i];
-		// 중간
-		for (int j = i - 1; j > 0; j--)
+		for (int j = i; j >= 0; j--)
 		{
-			dp[j] = max(dp[j - 1], dp[j]) + triangle[i][j];
-		}
-		// 왼쪽 끝
-		dp[0] = dp[0] + triangle[i][0];
-	}
+			// 입력 받기
+			int num;
+			cin >> num;
 
-	// 출력
+			// 왼쪽 끝
+			if (j == 0)
+				dp[j] = dp[j] + num;
+			// 오른쪽 끝
+			else if (j == i)
+				dp[j] = dp[j - 1] + num;
+			// 중간
+			else
+				dp[j] = max(dp[j - 1], dp[j]) + num;
+		}
+	}
+	// 최댓값 출력
 	cout << *max_element(dp.begin(), dp.end()) << '\n';
 }
 
