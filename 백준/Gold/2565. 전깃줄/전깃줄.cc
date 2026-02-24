@@ -5,64 +5,45 @@ using namespace std;
 
 // 전깃줄
 // B의 LIS(최장 증가 부분 수열)의 길이 구하기
-
-int LIS(const vector<pair<int, int>> A)
-{
-	// lower_bound 이용
-	// O(N log N) 시간 복잡도
-	
-	// LIS의 원소들을 저장하는 벡터
-	vector<int> vec_lis;
-
-	// A의 원소들을 순회하면서 B의 원소들을 vec_lis에 저장
-	for (int i = 0; i < A.size(); i++)
-	{
-		// B의 원소
-		int num = A[i].second;
-
-		vector<int>::iterator it = lower_bound(vec_lis.begin(), vec_lis.end(), num);
-
-		// num이 vec_lis의 모든 원소보다 큰 경우 it는 end를 반환하므로 뒤에서 추가
-		if (it == vec_lis.end())
-		{
-			vec_lis.push_back(num);
-		}
-		// num이 vec_lis의 원소보다 작은 경우
-		// 해당 원소를 num으로 대체 (num이 vec_lis의 원소보다 큰 경우는 이미 vec_lis에 존재하기 때문에 대체하지 않음)
-		else
-		{
-			*it = num;
-		}
-	}
-
-	return vec_lis.size();
-}
+// DP이용 O(N^2) 시간 복잡도
 
 void program()
 {
 	int N;
 	cin >> N;
 
-	// 0의 경우 연결이 없음
-	vector<pair<int, int>> A;
+	vector<pair<int,int>> A;
 
+	// 입력
 	for (int i = 0; i < N; i++)
 	{
 		int a, b;
 		cin >> a >> b;
 
-		pair<int, int> p = { a, b };
-		p.first = a;
-		p.second = b;
-
-		A.push_back(p);
+		A.emplace_back(a,b);
 	}
 
-	// a를 기준으로 오름차순 정렬
+	// 정렬
 	sort(A.begin(), A.end());
 
-	// 뺴야하는 전깃줄의 개수 = N - LIS(A)의 길이
-	cout << N - LIS(A) << "\n";
+	// LIS 구하기
+	vector<int> dp(N, 1);
+	
+	// A[0]은 항상 길이가 1이 됨
+	for (int i = 1; i < N; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (A[i].second > A[j].second)
+			{
+				// dp[i]는 dp[j] + 1과 비교하여 더 큰 값이 됨
+				dp[i] = max(dp[i], dp[j] + 1);
+			}
+		}
+	}
+
+	// N에서 LIS의 길이를 빼면 제거해야 하는 전깃줄의 최소 개수가 됨
+	cout << N - *max_element(dp.begin(), dp.end()) << "\n";
 }
 
 
