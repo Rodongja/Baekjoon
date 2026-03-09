@@ -8,20 +8,15 @@ void program()
 	int N , X;
 	cin >> N >> X;
 
-	vector<int> vec(N);
-
 	for (int i = 0; i < N; i++)
 	{
-		cin >> vec[i];
+		int num;
+		cin >> num;
+
+		if( num < X )
+			cout << num << " ";
 	}
 
-	for(int i = 0; i < N; i++)
-	{
-		if (vec[i] < X)
-		{
-			cout << vec[i] << " ";
-		}
-	}
 }
 
 
