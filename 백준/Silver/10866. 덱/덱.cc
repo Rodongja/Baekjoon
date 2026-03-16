@@ -1,5 +1,4 @@
 #include <iostream>
-#include <deque>
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -11,7 +10,9 @@ void program()
 	int N;
 	cin >> N;
 
-	deque<int> dq;
+	const int maxSize = 100000;
+	int dq[2*maxSize + 1];
+	int head = maxSize, tail = maxSize;
 
 	for (int i = 0; i < N; i++)
 	{
@@ -20,54 +21,45 @@ void program()
 
 		if (str == "push_front")
 		{
-			int num;
-			cin >> num;
-			
-			dq.push_front(num);
+			cin >> dq[--head];
 		}
 
 		else if (str == "push_back")
 		{
-			int num;
-			cin >> num;
-
-			dq.push_back(num);
+			cin >> dq[tail++];
 		}
 
 		else if (str == "pop_front")
 		{
-			if (dq.empty())
+			if (head == tail)
 			{
 				cout << "-1" << "\n";
 			}
 			else
 			{
-				cout << dq.front() << "\n";
-				dq.pop_front();
+				cout << dq[head++] << "\n";
 			}
 		}
 
 		else if (str == "pop_back")
 		{
-			if (dq.empty())
+			if (head == tail)
 			{
 				cout << "-1" << "\n";
 			}
 			else
 			{
-				cout << dq.back() << "\n";
-				dq.pop_back();
+				cout << dq[--tail] << "\n";
 			}
 		}
 
 		else if (str == "size")
 		{
-			cout << dq.size() << "\n";
+			cout << tail - head << "\n";
 		}
-
 		else if (str == "empty")
 		{
-			if (dq.empty())
+			if (tail == head)
 			{
 				cout << "1" << "\n";
 			}
@@ -76,31 +68,32 @@ void program()
 				cout << "0" << "\n";
 			}
 		}
-
+		
 		else if (str == "front")
 		{
-			if (dq.empty())
+			if (head == tail)
 			{
 				cout << "-1" << "\n";
 			}
 			else
 			{
-				cout << dq.front() << "\n";
+				cout << dq[head] << "\n";
 			}
 		}
 
-		else if(str == "back")
+		else if (str == "back")
 		{
-			if (dq.empty())
+			if (head == tail)
 			{
 				cout << "-1" << "\n";
 			}
 			else
 			{
-				cout << dq.back() << "\n";
+				cout << dq[tail - 1] << "\n";
 			}
 		}
 	}
+
 }
 
 
