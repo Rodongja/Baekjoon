@@ -12,7 +12,6 @@ void program()
 	cin >> N;
 
 	deque<int> dq;
-	int head = 0, tail = 0;
 
 	for (int i = 0; i < N; i++)
 	{
