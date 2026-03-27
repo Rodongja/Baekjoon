@@ -18,15 +18,15 @@ long long recursion(int A,int B,int C)
 	// B가 짝수인경우와 홀수인경우로 나뉨
 	long long temp = recursion(A, B / 2, C);
 
-	// 짝수인경우 A^B % C는 A^(B / 2) % C * A^(B / 2) % C
+	// 짝수인경우
 	if (B % 2 == 0)
 	{
 		return (temp * temp) % C;
 	}
-	// 홀수인경우  A^B % C는 ((A^(B / 2) % C) * A) % C
+	// 홀수인경우
 	else
 	{
-		return (temp * temp % C) * A % C;
+		return ((temp * temp) % C * (A % C)) % C;
 	}
 }
 
