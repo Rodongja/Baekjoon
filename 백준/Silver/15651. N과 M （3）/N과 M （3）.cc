@@ -1,35 +1,37 @@
 #include <iostream>
+#include <queue>
 #include <vector>
+#include <climits>
+#include <cmath>
+#include <string>
+#include <algorithm>
 using namespace std;
 
-// N과 M  (3)
-// 재귀와 dfs로 해결 가능
+// N과 M(3)
+// 백트래킹
 
-void dfs(int N, int M,vector<int>& vec)
+// vec : 수열
+// NumCnt : N
+// MaxVec : M
+// curIdx : 현재 수열의 인덱스
+void dfs(vector<int> vec, int NumCnt, int MaxVec, int curIdx)
 {
-	// 종료 조건
-	if (vec.size() == M)
+	// curIdx가 MaxVec와 같다면 수열이 완성된 것이므로 출력
+	if (curIdx == MaxVec)
 	{
-		// 출력
-		for (int i = 0; i < M; i++)
+		for (int i = 0; i < MaxVec; i++)
 		{
-			cout << vec[i] << ' ';
+			cout << vec[i] << " ";
 		}
-		cout << '\n';
+		cout << "\n";
 		return;
 	}
 
-	// 재귀 호출
-	for(int i = 1; i <= N; i++)
+	// 수열의 중복을 허용하므로 i부터 NumCnt까지 반복
+	for (int i = 1; i <= NumCnt; i++)
 	{
-		// 현재 노드 추가
-		vec.push_back(i);
-
-		// 재귀 호출
-		dfs(N, M, vec);
-
-		// 백트래킹
-		vec.pop_back();
+		vec[curIdx] = i;
+		dfs(vec, NumCnt, MaxVec, curIdx + 1);
 	}
 }
 
@@ -38,11 +40,10 @@ void program()
 	int N, M;
 	cin >> N >> M;
 
-	vector<int> vec;
-	int start = 0;
-	dfs(N, M,vec);
-}
+	vector<int> vec(M);
 
+	dfs(vec,N, M, 0);
+}
 
 int main()
 {
