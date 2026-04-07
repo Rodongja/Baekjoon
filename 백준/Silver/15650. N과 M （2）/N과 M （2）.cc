@@ -31,9 +31,6 @@ void dfs(vector<int> vec, int N, int M, int cur, int start)
 
 		// 다음 탐색에서는 cur + 1로 다음 인덱스, i + 1로 다음 숫자부터 탐색하도록 함
 		dfs(vec, N, M, cur + 1, i + 1);
-
-		// dfs가 끝나면 start를 1 증가시켜서 다음 숫자부터 탐색하도록 함
-		start++;
 	}
 }
 
