@@ -8,67 +8,60 @@ using namespace std;
 
 int N;
 
-// 별 찍기 - 10
-// 재귀적으로 별을 찍는 함수
-
-void stars(int row, int col, int size, vector<vector<char>>& grid)
+void stars(vector<vector<char>>& grid, int x, int y, int size)
 {
-	// size가 1이면 종료
-	if(size == 1)
-		return;
-
-	// 가운데 부분을 공백으로 채우기
 	int newSize = size / 3;
 
-	// 그리드를 9개로 나누어 재귀 호출
-	for (int i = 0; i < 3; i++)
+	// 사이즈가 1인 경우
+	if (size == 1)
+		return;
+
+	// 9등분으로 나누기
+	for(int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			// 가운데 부분은 공백으로 채우기
+			// 가운데 칸은 공백으로 채우기
 			if (i == 1 && j == 1)
 			{
-				// row + newSize 이상 row + 2*newSize 미만
-				
-				for (int r = row + newSize; r < row + 2 * newSize; r++)
+				for (int r = x + newSize; r < x + newSize * 2; r++)
 				{
-					// col + newSize 이상 col + 2*newSize 미만
-					for(int c = col + newSize; c < col +2 * newSize; c++)
+					for (int c = y + newSize; c < y + newSize * 2; c++)
 					{
 						grid[r][c] = ' ';
 					}
 				}
 			}
+			// 재귀 호출
 			else
 			{
-				stars(row + i * newSize, col + j * newSize, newSize, grid);
+				stars(grid,x + i * newSize, y + j * newSize, newSize);
 			}
-
 		}
 	}
 }
 
-void printStars(const vector<vector<char>>& stars)
+// 출력 함수
+void printStars(vector<vector<char>>& grid)
 {
-	for (const auto& row : stars)
+	for (int i = 0; i < N; i++)
 	{
-		for (const auto& ch : row)
+		for (int j = 0; j < N; j++)
 		{
-			cout << ch;
+			cout << grid[i][j];
 		}
-		cout << '\n';
+		cout << "\n";
 	}
 }
-
 
 void program()
 {
 	cin >> N;
 
-	vector<vector<char>> grid(N, vector<char>(N, '*'));
+	vector<vector<char>> grid(N,vector<char>(N,'*'));
 
-	stars(0, 0, N, grid);
-
+	// 첫 그리드의 좌표는 0,0이고 크기는 N
+	stars(grid, 0, 0, N);
 	printStars(grid);
 }
 
