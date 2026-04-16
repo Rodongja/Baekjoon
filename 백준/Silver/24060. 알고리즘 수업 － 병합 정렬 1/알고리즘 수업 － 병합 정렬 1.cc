@@ -6,8 +6,8 @@ using namespace std;
 void merge(vector<int>& A, int p, int q, int r);
 void merge_sort(vector<int>& A, int p, int r);
 
-int K;
-int cnt = 0;
+int K;			// K번째 저장되는 수
+int cnt = 0;	// 저장 횟수
 
 // 알고리즘 수업 - 병합 정렬 1
 
@@ -55,10 +55,12 @@ void merge(vector<int>& A, int p, int q, int r)
 	int i = p; // 왼쪽 부분 배열의 시작 인덱스
 	int j = q + 1; // 오른쪽 부분 배열의 시작 인덱스
 	int t = 0; // tmp 배열의 인덱스
-	vector<int> tmp(r - p + 1);
+	vector<int> tmp(r - p + 1); // 임시 배열
 
+	// A[p..q]와 A[q + 1..r]을 병합
 	while (i <= q && j <= r)
 	{
+		// 두 배열의 원소를 비교하여 작은 것을 tmp에 저장
 		if (A[i] <= A[j])
 		{
 			tmp[t] = A[i];
@@ -92,6 +94,7 @@ void merge(vector<int>& A, int p, int q, int r)
 		A[i] = tmp[t];
 		cnt++;
 
+		// K번째 저장되는 수를 출력하고 종료
 		if (cnt == K)
 		{
 			cout << A[i] << "\n";
@@ -115,8 +118,10 @@ void program()
 		cin >> A[i];
 	}
 
+	// 병합 정렬 수행
 	merge_sort(A, 0, N - 1);
 
+	// K번째 저장되는 수가 없는 경우 -1 출력
 	cout << -1 << "\n";
 }
 
