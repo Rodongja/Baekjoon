@@ -28,8 +28,7 @@ void move(int n, int from, int to, int temp)
 void program()
 {
 	cin >> N;
-	// cout << pow(2, N) - 1 << '\n'; // double형으로 반환되므로 정확하지가 않아 오차 발생
-	cout << ((1LL << N) - 1) << '\n'; // 2^N - 1을 비트 시프트 연산으로 계산
+	cout << (int)(pow(2, N)) - 1 << '\n'; // double형으로 반환되므로 정확하지가 않아 오차 발생
 	move(N, 1, 3, 2);
 }
 
