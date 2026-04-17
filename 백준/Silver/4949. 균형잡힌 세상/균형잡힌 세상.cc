@@ -65,7 +65,7 @@ void program()
 {
 	string str;
 	
-	while (str != ".")
+	while (true)
 	{
 		getline(cin, str);
 		
