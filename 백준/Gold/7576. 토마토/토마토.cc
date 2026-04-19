@@ -39,7 +39,7 @@ int BFS(vector<vector<int>>& tomato, vector<vector<int>>& date, queue<pair<int,i
 			int nx = cur.first + dx[dir];
 			int ny = cur.second + dy[dir];
 
-			// 미로 범위 체크
+			// 토마토 범위 체크
 			if (nx < 0 || nx >= tomato.size() || ny < 0 || ny >= tomato[0].size())
 			{
 				continue;
